@@ -34,3 +34,54 @@ ggplot(data = mtcars) +
       fun = median
     ) +
     labs(x = "cilindrada", y = "millas pos galón")
+
+#Graficar con un barplot para variables categóricas
+ggplot(data=mtcars, aes(x=gear, fill=as.factor(gear))) +
+    geom_bar() +
+    labs(x="Número de marchas", y="Frecuencia", fill="# de marchas")+
+    ggtitle("Gráfico de Barras")
+
+#Cambiamos el fondo
+ggplot(data=mtcars, aes(x=gear, fill=as.factor(gear))) +
+  geom_bar() +
+  labs(x="Número de marchas", y="Frecuencia", fill="# de marchas")+
+  ggtitle("Gráfico de Barras") +
+  theme_minimal()
+
+#Graficar Histograma
+ggplot(data = mtcars) +
+  geom_histogram(aes(x=mpg)) +
+  labs(x="Millas por galón", y="Frecuencia") +
+  theme_minimal()
+
+#Graficar un boxplot
+ggplot(data=mtcars) +
+  geom_boxplot(aes(y=mpg)) +
+  labs(y="Millas por galón") +
+  ggtitle("Boxplot") +
+  theme_minimal()
+
+#Graficamos un boxplot para cada nivel de cilindrada
+ggplot(data = mtcars) +
+  geom_boxplot(aes(x = as.factor(cyl), y = mpg)) +
+  labs(y = "Millas por galón", x="Número de cilindros") +
+  ggtitle("Boxplot") +
+  theme_minimal()
+
+#Graficamos un boxplot para cada nivel de cilindrada, con leyenda
+ggplot(data = mtcars) +
+  geom_boxplot(aes(x = as.factor(cyl), y = mpg,
+                   fill = as.factor(cyl))) +
+  labs(y = "Millas por galón", x="Número de cilindros",
+       fill = "# cilindros") +
+  ggtitle("Boxplot") +
+  theme_minimal()
+
+#Graficamos usando facet
+ggplot(mtcars, aes(x=disp, y=mpg, color=as.factor(cyl))) +
+  geom_point(alpha=0.8) +
+  geom_smooth(method="lm",colour="red") +
+  labs(y = "millas por galón",
+       x = "Cilindrada del motor en cm^3",
+       color="# cilindros") +
+  facet_grid(.~am,margins = TRUE)
